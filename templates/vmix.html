@@ -7,6 +7,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     </style>
+    <script>
+        teams_data = {{ teams_data | tojson | safe }};
+        console.log('teams_data:', teams_data);
+    </script>
 </head>
 
 <body>
@@ -14,6 +18,7 @@
     {% include 'graphics/current_team.html' %}
     {% include 'graphics/speaker_info.html' %}
     {% include 'graphics/best_time.html' %}
+    {% include 'graphics/last_run_times.html' %}
 
     <script>
         globalThis.current_team_number = -10;
@@ -21,7 +26,12 @@
         globalThis.current_location = "";
         globalThis.current_speaker1 = { "name": NaN, "info": NaN };
         globalThis.current_speaker2 = { "name": NaN, "info": NaN };
-        globalThis.last_run = [{ "number": NaN, "time": NaN }, { "number": NaN, "time": NaN }, { "number": NaN, "time": NaN }];
+        globalThis.last_run = [{ "number": NaN, "time": NaN, "diff": NaN, "show": false }, { "number": NaN, "time": NaN, "diff": NaN, "show": false }, { "number": NaN, "time": NaN, "diff": NaN, "show": false }];
+        setTimeout(() => {
+            hideBestTeam("ev");
+            hideBestTeam("cv");
+        }, 1000);
+
     </script>
 </body>
 

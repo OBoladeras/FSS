@@ -71,7 +71,8 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    background: linear-gradient(to right, transparent, #232323, #232323, transparent);
+    /* background: linear-gradient(to right, transparent, #232323, #232323, transparent); */
+    background: #232323;
 }
 
 .last_run_times_car_number {

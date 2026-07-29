@@ -11,7 +11,7 @@ https://github.com/OBoladeras/formula-student-graphics
 
 <head>
     <meta charset="utf-8">
-    <title>FSS ON-LINE RESULTS 2025</title>
+    <title>FSS ON-LINE RESULTS 2026</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="/static/logo.png" type="image/x-icon">
@@ -111,11 +111,11 @@ https://github.com/OBoladeras/formula-student-graphics
             <div class="absolute mt-20 md:left-12 w-11/12 md:w-1/3 z-30">
                 <div class="opacity-0 animate-slide-in-left">
                     <p class="text-xl md:text-2xl font-medium italic">Results</p>
-                    <h2 class="text-2xl md:text-4xl font-extrabold italic">FORMULA STUDENT SPAIN 2025</h2>
+                    <h2 class="text-2xl md:text-4xl font-extrabold italic">FORMULA STUDENT SPAIN 2026</h2>
                 </div>
                 <div
                     class="mt-6 opacity-0 animate-slide-in-left delay-[1.2s] text-sm md:text-base text-justify leading-relaxed w-80">
-                    Welcome to the official results portal for Formula Student Spain 2025. Here you will find the latest
+                    Welcome to the official results portal for Formula Student Spain 2026. Here you will find the latest
                     rankings, event timings, and performance data from all dynamic and static disciplines. Our mission
                     is to deliver accurate, real-time updates so teams, sponsors, and fans can follow the competition
                     effortlessly. Explore leaderboards, compare scores, and track your favorite teams as they push
@@ -182,7 +182,7 @@ https://github.com/OBoladeras/formula-student-graphics
                             class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md transition peer-checked:translate-x-full duration-300">
                         </div>
                     </div>
-                    <span class="text-white text-sm">Show only best run per car</span>
+                    <span class="text-white text-sm">Show all runs</span>
                 </label>
 
             </div>
@@ -231,7 +231,7 @@ https://github.com/OBoladeras/formula-student-graphics
     {% endfor %}
 
     <footer class="mt-20 text-center text-sm text-gray-400 py-8">
-        &copy; 2025 Formula Student Spain. All rights reserved.
+        &copy; 2026 Formula Student Spain. All rights reserved.
     </footer>
 
     <script>
@@ -265,7 +265,7 @@ https://github.com/OBoladeras/formula-student-graphics
 
                     let filteredData = data;
 
-                    if (showBestOnly) {
+                    if (!showBestOnly) {
                         const bestRunsMap = new Map();
 
                         data.forEach((run) => {
@@ -315,7 +315,6 @@ https://github.com/OBoladeras/formula-student-graphics
 
                         tbody.appendChild(row);
                     });
-
                 })
                 .catch(err => {
                     console.error('Error loading subcategory data', err);

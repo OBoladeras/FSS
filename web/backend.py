@@ -10,6 +10,28 @@ class times():
         self.categories = ["combustion&electric", "driverless", "classic-cup"]
         self.subcategories = ["endurance", "trackdrive",
                               "skidpad", "acceleration", "autocross"]
+        self.urls = {
+            "endurance": {
+                "combustion&electric": "http://www.pde-racing.com/tol/temps1594.asp",
+                "driverless": "http://www.pde-racing.com/tol/temps1593.asp",
+                "classic-cup": "http://www.pde-racing.com/tol/temps1595.asp"
+
+            },
+            "acceleration": {
+                "combustion&electric": "http://fss2026.ddns.net/Acceleracio.aspx",
+                "driverless": "http://fss2026.ddns.net/DL_Acceleracio.aspx",
+                "classic-cup": "http://fss2026.ddns.net/CUP_Acceleracio.aspx"
+            },
+            "autocross": {
+                "combustion&electric": "http://fss2026.ddns.net/Autocross.aspx",
+                "classic-cup": "http://fss2026.ddns.net/CUP_Autocross.aspx"
+            },
+            "skidpad": {
+                "combustion&electric": "http://fss2026.ddns.net/SkidPad.aspx",
+                "driverless": "http://fss2026.ddns.net/DL_SkidPad.aspx",
+            },
+            "dl_autocross": "http://www.pde-racing.com/tol/temps1592.asp"
+        }
 
     def get_data_from(self, cat: str, sub: str) -> list:
         if cat not in self.categories or sub not in self.subcategories:
@@ -31,13 +53,8 @@ class times():
         if category not in self.categories:
             raise ValueError("Invalid category. Choose from: " +
                              ", ".join(self.categories))
-        if category == "combustion&electric":
-            url = "http://www.pde-racing.com/tol/temps1594.asp"
-        elif category == "driverless":
-            url = "http://www.pde-racing.com/tol/temps1593.asp"
-        elif category == "classic-cup":
-            url = "http://www.pde-racing.com/tol/temps1595.asp"
 
+        url = self.urls["endurance"].get(category, "")
         response = requests.get(url)
         decoded_data = html.unescape(response.text)
 
@@ -93,13 +110,8 @@ class times():
         if category not in self.categories:
             raise ValueError("Invalid category. Choose from: " +
                              ", ".join(self.categories))
-        if category == "combustion&electric":
-            url = "http://fss2025.ddns.net/Acceleracio.aspx"
-        elif category == "driverless":
-            url = "http://fss2025.ddns.net/DL_Acceleracio.aspx"
-        elif category == "classic-cup":
-            url = "http://fss2025.ddns.net/CUP_Acceleracio.aspx"
 
+        url = self.urls["acceleration"].get(category, "")
         response = requests.get(url)
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -124,11 +136,8 @@ class times():
         if category not in self.categories:
             raise ValueError("Invalid category. Choose from: " +
                              ", ".join(self.categories))
-        if category == "combustion&electric":
-            url = "http://fss2025.ddns.net/Autocross.aspx"
-        elif category == "classic-cup":
-            url = "http://fss2025.ddns.net/CUP_Autocross.aspx"
 
+        url = self.urls["autocross"].get(category, "")
         response = requests.get(url)
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -153,11 +162,8 @@ class times():
         if category not in self.categories:
             raise ValueError("Invalid category. Choose from: " +
                              ", ".join(self.categories))
-        if category == "combustion&electric":
-            url = "http://fss2025.ddns.net/SkidPad.aspx"
-        elif category == "driverless":
-            url = "http://fss2025.ddns.net/DL_SkidPad.aspx"
 
+        url = self.urls["skidpad"].get(category, "")
         response = requests.get(url)
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -179,8 +185,7 @@ class times():
         return data
 
     def readDlAutocross(self) -> list:
-        url = "http://www.pde-racing.com/tol/temps1592.asp"
-
+        url = self.urls["dl_autocross"]
         response = requests.get(url)
         decoded_data = html.unescape(response.text)
 

@@ -8,12 +8,19 @@ from bs4 import BeautifulSoup
 
 class times():
     def __init__(self) -> None:
-        pass
+        self.urls = {
+            "endurance": "http://www.pde-racing.com/tol/temps1594.asp",
+            "dl_autocross": "http://www.pde-racing.com/tol/temps1592.asp",
+            "autocross": "http://fss2026.ddns.net/Autocross.aspx",
+            "best_times": {
+                "skidpad": "http://fss2026.ddns.net/SkidPad.aspx",
+                "acceleration": "http://fss2026.ddns.net/Acceleracio.aspx",
+                "autocross": "http://fss2026.ddns.net/Autocross.aspx"
+            }
+        }
 
     def readEndurance(self) -> list:
-        url = "http://www.pde-racing.com/tol/temps1594.asp"
-
-        response = requests.get(url)
+        response = requests.get(self.urls["endurance"])
         decoded_data = html.unescape(response.text)
 
         rows = decoded_data.split('\n')
@@ -28,10 +35,9 @@ class times():
 
         df.dropna(how='all', axis=1, inplace=True)
         df.dropna(how='all', axis=0, inplace=True)
-        
+
         df.iloc[:, 3] = df.iloc[:, 3].astype(str).str.lstrip('0')
         df.iloc[:, 3] = df.iloc[:, 3].replace('', '0')
-
 
         data = df.values.tolist()[2:]
         finals = []
@@ -42,7 +48,7 @@ class times():
         return finals
 
     def readDlAutocross(self) -> list:
-        url = "http://www.pde-racing.com/tol/temps1434.asp"
+        url = self.urls["dl_autocross"]
 
         response = requests.get(url)
         decoded_data = html.unescape(response.text)
@@ -100,12 +106,7 @@ class times():
                     "name": ""
         }, "race": race}
 
-        if race == "skidpad":
-            url = 'http://fss2025.ddns.net/SkidPad.aspx'
-        elif race == "acceleration":
-            url = 'http://fss2025.ddns.net/Acceleracio.aspx'
-        elif race == "autocross":
-            url = 'http://fss2025.ddns.net/Autocross.aspx'
+        url = self.urls["best_times"].get(race, "")
 
         if race in ["skidpad", "acceleration", "autocross"]:
             response = requests.get(url)
@@ -234,9 +235,7 @@ class times():
 
     def autocross(self) -> list:
         data = []
-        url = "http://fss2025.ddns.net/Autocross.aspx"
-
-        response = requests.get(url)
+        response = requests.get(self.urls["autocross"])
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
 

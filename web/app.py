@@ -2,6 +2,7 @@ from backend import times
 from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
+loader = times()
 
 
 @app.route('/', methods=['GET'])
@@ -15,7 +16,6 @@ def index():
                 "autocross": [],
                 "skidpad": []
             }
-
         },
         "driverless": {
             "name": "Driverless",
@@ -41,8 +41,6 @@ def index():
 
 @app.route('/api/results/<cat>/<sub>')
 def api_results(cat: str, sub: str):
-    loader = times()
-
     try:
         return jsonify({'rows': loader.get_data_from(cat, sub)})
     except ValueError as e:

@@ -129,6 +129,46 @@ function part1(data) {
         }
     }
     catch (error) { }
+
+    // Update last run times
+    try {
+        for (let i = 0; i < 3; i++) {
+            if (JSON.stringify(last_run[i]) !== JSON.stringify(data['last_run'][i])) {
+                if (last_run[i].show != data['last_run'][i].show) {
+                    if (data['last_run'][i].show) {
+                        show_last_run_times(i);
+                    }
+                    else {
+                        hide_last_run_times(i);
+                    }
+                }
+
+                last_run_number = document.getElementById(`last_run_times_car_number_container_${i}_`);
+                last_run_times_best_time_result_ = document.getElementById(`last_run_times_best_time_result_${i}`);
+                last_run_times_difference_result_ = document.getElementById(`last_run_times_difference_result_${i}`);
+                last_run_times_university = document.getElementById(`last_run_times_university_${i}`);
+                last_run_times_team_logo = document.getElementById(`last_run_times_team_logo_${i}`);
+                last_run_times_car_category = document.getElementById(`last_run_times_car_category_${i}`);
+
+                last_run_number.innerHTML = data['last_run'][i].number;
+                last_run_times_best_time_result_.innerHTML = data['last_run'][i].time;
+                last_run_times_difference_result_.innerHTML = data['last_run'][i].diff;
+                last_run_times_university.innerHTML = teams_data[data['last_run'][i].number][4] || '';
+                last_run_times_team_logo.src = `/static/icons/team_parts/${data['last_run'][i].number}.png`;
+
+                if (teams_data[data['last_run'][i].number][8] == 'ELECTRIC') {
+                    category = 'ev';
+                } else {
+                    category = 'cv';
+                }
+                last_run_times_car_category.src = `/static/icons/${category}.png`;
+                console.log(`last_run_times_car_category_${i} src:`, last_run_times_car_category.src);
+
+                last_run[i] = data['last_run'][i];
+            }
+        }
+    }
+    catch (error) { }
 }
 
 // Hide or show the team graphic
@@ -209,6 +249,7 @@ function part2(data) {
             hideBestTeam('ev');
         }
     }
+
     if (data.graphics_status.best_time_object_cv !== graphics_status.best_time_object_cv) {
         graphics_status.best_time_object_cv = data.graphics_status.best_time_object_cv;
         best_time_object_cv = document.getElementById('best_time_object_cv');

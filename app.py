@@ -31,8 +31,25 @@ def vmix():
     current_speaker2 = data.get("current_speaker2")
 
     last_run_times = [333, 333, 333, 'combustion', 7.216]
+    teams_data = {}
+    import pandas as pd
+    df = pd.read_excel("utils/MFU_FSS_2026_20260729_1031.xlsx")
+    teams_data = df.astype(str).values.tolist()
+    print("teams_data:", teams_data[1])
+    clean_teams = {}
+    for team in teams_data:
+        if team[7] == "CLASSIC" and not data['classic']:
+            continue
+        if team[7] == "CLASSIC" and data['classic']:
+            continue
 
-    return render_template("vmix.html", current_team_number=get_current_team(), graphics_status=graphics_status, current_speaker1=current_speaker1, current_speaker2=current_speaker2, last_run_times=last_run_times)
+        clean_teams[team[1]] = team
+
+    return render_template("vmix.html", current_team_number=get_current_team(),
+                           graphics_status=graphics_status,
+                           current_speaker1=current_speaker1, current_speaker2=current_speaker2,
+                           last_run_times=last_run_times,
+                           teams_data=clean_teams)
 
 
 @app.route("/endurance")
@@ -69,15 +86,14 @@ def get_teams():
     except:
         return jsonify([])
 
+
 # ------------------------------------------------------------------------------------
 # -----------------------------
 #   API
 # -----------------------------
-
-
 @app.route("/api/vmix", methods=["GET"])
 def vmix_api():
-    with open("data.json", "r") as f:
+    with open(JSON_PATH, "r") as f:
         data = json.load(f)
 
     return jsonify(data)
@@ -90,7 +106,7 @@ def select_team():
 
 @app.route("/api/best")
 def best_api():
-    with open("data.json", "r") as f:
+    with open(JSON_PATH, "r") as f:
         race = json.load(f)["race"]
     try:
         return jsonify(raceTimes.bestTime(race))
@@ -116,17 +132,16 @@ def index():
         data['last_run'] = []
         for i in range(3):
             number = request.form.get(f'last_run_{i}_number', '0')
-            time = request.form.get(f'last_run_{i}_time', '0')
-            try:
-                time = float(time)
-            except ValueError:
-                time = 0.0
-            data['last_run'].append({"number": number, "time": time})
+            time = request.form.get(f'last_run_{i}_time', '0', type=float)
+            diff = request.form.get(f'last_run_{i}_diff', '0', type=float)
+            show = request.form.get(f'last_run_{i}_show', 'off') == 'on'
+            data['last_run'].append(
+                {"number": number, "time": time, "diff": diff, "show": show})
 
         for key in data['graphics_status']:
             data['graphics_status'][key] = key in request.form
 
-        with open(JSON_PATH, 'w') as f:
+        with open(JSON_PATH, "w", encoding="UTF-8") as f:
             json.dump(data, f, indent=4)
         return render_template('graphic_manager.html', data=data, success=True)
 
@@ -134,4 +149,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="8081", debug=False)
+    app.run(host="0.0.0.0", port="8081", debug=True)

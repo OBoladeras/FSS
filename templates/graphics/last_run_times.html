@@ -4,24 +4,18 @@
     <div id="last_run_times_university_{{ index }}" class="last_run_times_university">{{ last_run_times[2] }}</div>
     <div style="display: flex;">
         <div id="last_run_times_car_number_container_{{ index }}">
-            <div id="last_run_times_car_number_ev" class="last_run_times_car_number">{{ last_run_times[0] }}</div>
-            {% if 'Combustion' in last_run_times[3] %}
-            <img src="../../static/icons/cv.png" width="31" height="31"
+            <div id="last_run_times_car_number_container_{{ index }}_" class="last_run_times_car_number">{{ last_run_times[0] }}</div>
+            <img src="../../static/icons/cv.png" width="31" height="31" id="last_run_times_car_category_{{index}}"
                 style="padding: 4.5px 0px; background-color: white;">
-            {% else %}
-            <img src="../../static/icons/ev.png" width="31" height="31"
-                style="padding: 4.5px 0px; background-color: white;">
-            {% endif %}
         </div>
         <div style="display: flex; align-items: flex-end;" id="last_run_times_team_ev_container_{{ index }}">
             <div style="overflow: hidden;">
-                <img id="last_run_times_team_ev" style="width: 214px; height: 32px; margin-top: -1px"
+                <img id="last_run_times_team_logo_{{ index }}" style="width: 214px; height: 32px; margin-top: -1px"
                     src="../../static/icons/team_parts/{{ last_run_times[0] }}.png" alt="Team Logo">
                 <div class="last_run_times_time_container">
                     <div>
                         <p class="last_run_times_best_time">Last Time</p>
-                        <p class="last_run_times_best_time_result"
-                            id="last_run_times_best_time_result_{{ index }}">
+                        <p class="last_run_times_best_time_result" id="last_run_times_best_time_result_{{ index }}">
                         </p>
                     </div>
                     <div>
@@ -32,8 +26,7 @@
                             Difference
                             {% endif %}
                         </p>
-                        <p class="last_run_times_difference_result"
-                            id="last_run_times_difference_result_{{ last_run_times[0] }}">
+                        <p class="last_run_times_difference_result" id="last_run_times_difference_result_{{ index }}">
                         </p>
                     </div>
                 </div>

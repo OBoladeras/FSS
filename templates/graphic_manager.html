@@ -214,7 +214,13 @@
                         <label for="last_run_{{ i }}_time">Time (s)</label>
                         <input type="text" name="last_run_{{ i }}_time" id="last_run_{{ i }}_time"
                             value="{{ data.last_run[i].time if data.last_run and i < data.last_run|length else '' }}">
-                    </div>
+                        <input type="text" name="last_run_{{ i }}_diff" id="last_run_{{ i }}_diff"
+                            value="{{ data.last_run[i].diff if data.last_run and i < data.last_run|length else '' }}">
+                        
+                        <input type="checkbox" name="last_run_{{ i }}_show" id="last_run_{{ i }}_show"
+                            {% if data.last_run[i].show %}checked{% endif %}>
+
+                        </div>
                     {% endfor %}
                 </div>
             </div>
