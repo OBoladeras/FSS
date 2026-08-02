@@ -82,6 +82,7 @@ def get_teams():
             elif data['race'] == "autocross":
                 data = times().autocross()[:8]
 
+        print(data)
         return jsonify(data)
     except:
         return jsonify([])
@@ -149,4 +150,27 @@ def index():
 
 
 if __name__ == "__main__":
+    def create_files():
+        import pandas as pd
+        df = pd.read_excel('./utils/MFU_FSS_2026_20260729_1031.xlsx')
+        lines = df.astype(str).values.tolist()
+        data = lines[1:]
+        heads = ['CAR NUMBER', 'TEAM', 'UNIVERSITY', 'CATEGORY', 'COUNTRY']
+
+        with open('classic.csv', 'w', newline='', encoding='UTF-8') as f2:
+            with open('teams.csv', 'w', newline='', encoding='UTF-8') as f:
+                classic = csv.writer(f2)
+                teams = csv.writer(f)
+                classic.writerow(heads)
+                teams.writerow(heads)
+                for team in data:
+                    row = [team[1], team[3], team[4],
+                           team[7], team[5].split(' ')[0]]
+                    if team[7] == "CLASSIC":
+                        classic.writerow(row)
+                    else:
+                        teams.writerow(row)
+
+    create_files()
+
     app.run(host="0.0.0.0", port="8081", debug=True)

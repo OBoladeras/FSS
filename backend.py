@@ -40,12 +40,8 @@ class times():
         df.iloc[:, 3] = df.iloc[:, 3].replace('', '0')
 
         data = df.values.tolist()[2:]
-        finals = []
-        for i in data:
-            if i[3] in ["477", "431", "94", "426"]:
-                finals.append(i)
 
-        return finals
+        return data
 
     def readDlAutocross(self) -> list:
         url = self.urls["dl_autocross"]
@@ -71,7 +67,6 @@ class times():
 
         # Convert back to list and skip the first two rows
         result = df.values.tolist()[2:]
-        print(result)
         return result
 
     def bestTime(self, race: str) -> dict:
