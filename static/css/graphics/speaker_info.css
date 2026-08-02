@@ -23,7 +23,8 @@
 
 
 #speaker_infoRedBar {
-    background: linear-gradient(to right, transparent 8%, #c8012e 35%, #c8012e 65%, transparent 92%);
+    /* background: linear-gradient(to right, transparent 8%, #c8012e 35%, #c8012e 65%, transparent 92%); */
+    background: #c8012e;
 
     height: 55px;
     width: 0px;
@@ -59,7 +60,8 @@
 #speaker_infoContent {
     height: 0px;
     width: 425px;
-    background: linear-gradient(to right, transparent 8%, #232323 35%, #232323 65%, transparent 92%);
+    /* background: linear-gradient(to right, transparent 8%, #232323 35%, #232323 65%, transparent 92%); */
+    background: #232323;
     font-style: italic;
 
     display: flex;

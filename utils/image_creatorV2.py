@@ -1,7 +1,7 @@
-import pandas as pd
 import os
-import subprocess
 import tempfile
+import subprocess
+import pandas as pd
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -71,12 +71,12 @@ def get_banner(line):
 
     rgb = tuple(int(color[i:i + 2], 16) for i in (1, 3, 5))
 
-    rectangle = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    rectangle = Image.new("RGBA", (width, height), rgb)
+    # rectangle = Image.new("RGBA", (width, height), (0, 0, 0, 0))rgb
 
-    for x in range(width):
-        alpha = int(255 * (1 - x / (width - 1)))
-
-        rectangle.paste((*rgb, alpha), (x, 0, x + 1, height))
+    # for x in range(width):
+    #     alpha = int(255 * (1 - x / (width - 1)))
+    #     rectangle.paste((*rgb, alpha), (x, 0, x + 1, height))
 
     # Logo
     try:
@@ -140,7 +140,7 @@ teams = []
 for key in clean_lines:
 
     line = clean_lines[key]
-    img = Image.open("skidpad_mac_Mesa_de_trabajo_1.png").convert("RGBA")
+    img = Image.open("skidpad_mac_Mesa_de_trabajo_1 copy.png").convert("RGBA")
 
     team = line["Aka Name"]
     number = line["#"]
@@ -150,7 +150,7 @@ for key in clean_lines:
     banner = get_banner(line)
     banner.save(f"../static/icons/team_parts/{number}.png", "PNG")
 
-    img.paste(banner, (118, 30), banner)
+    img.paste(banner, (118, 29), banner)
 
     if ("ev" if "electric" in line["Powertrain"].lower() else "cv") == "cv":
         img.paste(cv, (0, 29), cv)
