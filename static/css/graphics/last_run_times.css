@@ -57,8 +57,9 @@ body {
 .last_run_times_team {
     position: absolute;
     transition: top 1s, opacity 1s;
-    bottom: 75px;
+    bottom: 90px;
     opacity: 1;
+    scale: 1.2;
 }
 
 

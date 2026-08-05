@@ -15,7 +15,6 @@ class times():
                 "combustion&electric": "http://www.pde-racing.com/tol/temps1594.asp",
                 "driverless": "http://www.pde-racing.com/tol/temps1593.asp",
                 "classic-cup": "http://www.pde-racing.com/tol/temps1595.asp"
-
             },
             "acceleration": {
                 "combustion&electric": "http://fss2026.ddns.net/Acceleracio.aspx",
@@ -50,6 +49,7 @@ class times():
             return self.readSkidpad(cat)
 
     def readEndurance(self, category: str) -> list:
+        return []
         if category not in self.categories:
             raise ValueError("Invalid category. Choose from: " +
                              ", ".join(self.categories))
@@ -133,6 +133,7 @@ class times():
         return data
 
     def readAutocross(self, category: str) -> list:
+        return []
         if category not in self.categories:
             raise ValueError("Invalid category. Choose from: " +
                              ", ".join(self.categories))

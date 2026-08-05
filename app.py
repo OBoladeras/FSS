@@ -164,7 +164,7 @@ if __name__ == "__main__":
                 classic.writerow(heads)
                 teams.writerow(heads)
                 for team in data:
-                    row = [team[1], team[3], team[4],
+                    row = [team[1], team[2], team[4],
                            team[7], team[5].split(' ')[0]]
                     if team[7] == "CLASSIC":
                         classic.writerow(row)

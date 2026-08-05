@@ -55,10 +55,13 @@ for line in lines:
     if line[7] == "CLASSIC" and classics:
         continue
 
-    clean_lines[line[3]] = {
+    if line[2] in clean_lines.keys():
+        print("laskdjasd")
+
+    clean_lines[line[2]] = {
         key: value for key, value in zip(heads, line)
     }
-
+    
 
 def get_banner(line):
     width, height = 408, 61
@@ -100,7 +103,7 @@ def get_banner(line):
         (logo_width, logo_height), Image.Resampling.LANCZOS)
     rectangle.paste(square_logo, (0, 0), square_logo)
 
-    text = line["Aka Name"]
+    text = line["Team Name"]
     draw = ImageDraw.Draw(rectangle)
 
     text_left = 80
@@ -142,7 +145,7 @@ for key in clean_lines:
     line = clean_lines[key]
     img = Image.open("skidpad_mac_Mesa_de_trabajo_1 copy.png").convert("RGBA")
 
-    team = line["Aka Name"]
+    team = line["Team Name"]
     number = line["#"]
     university = line["University"]
 

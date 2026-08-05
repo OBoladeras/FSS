@@ -4,7 +4,8 @@
     <div id="last_run_times_university_{{ index }}" class="last_run_times_university">{{ last_run_times[2] }}</div>
     <div style="display: flex;">
         <div id="last_run_times_car_number_container_{{ index }}">
-            <div id="last_run_times_car_number_container_{{ index }}_" class="last_run_times_car_number">{{ last_run_times[0] }}</div>
+            <div id="last_run_times_car_number_container_{{ index }}_" class="last_run_times_car_number">{{
+                last_run_times[0] }}</div>
             <img src="../../static/icons/cv.png" width="31" height="31" id="last_run_times_car_category_{{index}}"
                 style="padding: 4.5px 0px; background-color: white;">
         </div>
@@ -18,7 +19,7 @@
                         <p class="last_run_times_best_time_result" id="last_run_times_best_time_result_{{ index }}">
                         </p>
                     </div>
-                    <div>
+                    <div>   
                         <p class="last_run_times_difference">
                             {% if race == 'endurance' %}
                             Last
@@ -41,6 +42,7 @@
     function hide_last_run_times(i) {
         last_run_times_university = document.getElementById(`last_run_times_university_${i}`);
         last_run_times_university.style.height = '0px';
+        last_run_times_university.style.opacity = '0';
 
         setTimeout(() => {
             last_run_times_team_ev_container = document.getElementById(`last_run_times_team_ev_container_${i}`);
@@ -50,6 +52,8 @@
                 last_run_times_car_number_container = document.getElementById(`last_run_times_car_number_container_${i}`);
                 last_run_times_car_number_container.style.transform = 'scaleY(0)';
                 last_run_times_car_number_container.style.opacity = '0';
+                last_run_times_team = document.getElementById(`last_run_times_team_${i}`);
+                last_run_times_team.style.opacity = '1';
             }, 600);
         }, 400);
     }
@@ -57,6 +61,7 @@
     function show_last_run_times(i) {
         last_run_times_university = document.getElementById(`last_run_times_university_${i}`);
         last_run_times_university.style.height = '30px';
+        last_run_times_university.style.opacity = '1';
 
         setTimeout(() => {
             last_run_times_team_ev_container = document.getElementById(`last_run_times_team_ev_container_${i}`);
@@ -66,11 +71,15 @@
                 last_run_times_car_number_container = document.getElementById(`last_run_times_car_number_container_${i}`);
                 last_run_times_car_number_container.style.transform = 'scaleY(1)';
                 last_run_times_car_number_container.style.opacity = '1';
+                last_run_times_team = document.getElementById(`last_run_times_team_${i}`);
+                last_run_times_team.style.opacity = '1';
             }, 600);
         }, 400);
-    }
+    };
 
-
+    hide_last_run_times(0);
+    hide_last_run_times(1);
+    hide_last_run_times(2);
 </script>
 
 <link rel="stylesheet" href="../../static/css/graphics/last_run_times.css">

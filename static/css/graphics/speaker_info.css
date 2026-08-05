@@ -18,7 +18,10 @@
 }
 
 #speaker_info_object2 {
-    right: 250px;
+    /* right: 250px; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);    
 }
 
 
